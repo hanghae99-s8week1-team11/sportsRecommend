@@ -118,3 +118,60 @@ font-size: 15px;
 .등록취소 {
     align-self: flex-end;
 }
+
+/* header set */
+.container--header {
+    background-color: white;
+  
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: fixed;
+  
+    margin:0;
+  
+    height:2.5rem;
+    width: 100vw;
+  
+    z-index: 5;
+    box-sizing: border-box;
+  }
+  
+  
+  .container--header__logo {
+    display: block;
+  
+    color: #000000;
+    text-decoration: none;
+  
+    margin-left: 1rem;
+    margin-right: auto;
+  
+  
+    cursor: pointer;
+  }
+  
+  .container--header__button {
+    background: none;
+  
+    display: block;
+  
+    font-size: 0.7rem;
+    text-decoration: none;
+    color:#000000;
+  
+    border: none;
+    outline: none;
+  
+    margin-left: auto;
+    margin-right: 1rem;
+  
+    transition: 0.05s ease;
+    cursor: pointer;
+  }
+  
+  .container--header__button:hover {
+    color: skyblue;
+  
+    transition: 0.05s ease;
+  }

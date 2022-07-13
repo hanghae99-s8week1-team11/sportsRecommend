@@ -40,14 +40,20 @@ body {
   height:2.5rem;
   width: 100vw;
 
+  z-index: 5;
   box-sizing: border-box;
 }
+
 
 .container--header__logo {
   display: block;
 
+  color: #000000;
+  text-decoration: none;
+
   margin-left: 1rem;
   margin-right: auto;
+
 
   cursor: pointer;
 }
@@ -58,6 +64,8 @@ body {
   display: block;
 
   font-size: 0.7rem;
+  text-decoration: none;
+  color:#000000;
 
   border: none;
   outline: none;
@@ -65,9 +73,15 @@ body {
   margin-left: auto;
   margin-right: 1rem;
 
+  transition: 0.05s ease;
   cursor: pointer;
 }
 
+.container--header__button:hover {
+  color: skyblue;
+
+  transition: 0.05s ease;
+}
 
 /* body box set */
 .container--body {
@@ -144,17 +158,26 @@ body {
   height:7rem;
 }
 
+.content__rightdiv__btn {
+  display: flex;
+  flex-direction: row;
+  gap:1rem;
+
+  margin-top: auto;
+  margin-left: auto;
+}
+
 .content__rightdiv__url > a {
   font-size: 0.8rem;
   color: #50b2cb;
 }
 
-.content__rightdiv > a {
+/* .content__rightdiv__btn > a {
   margin-top: auto;
   margin-left: auto;
-}
+} */
 
-.content__rightdiv > a {
+.content__rightdiv__btn > a {
   background-color: #f2cf83;
 
   text-decoration: none;
@@ -172,7 +195,7 @@ body {
   cursor: pointer;
 }
 
-.content__rightdiv > a:hover {
+.content__rightdiv__btn > a:hover {
   background-color: #fcde83;
 
   color: #67635d;
@@ -181,3 +204,4 @@ body {
   transition: 0.3s ease;
   cursor: pointer;
 }
+

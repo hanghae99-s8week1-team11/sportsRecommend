@@ -10,7 +10,6 @@
   <link rel="stylesheet" href="../static/css/detail.css" />
   <script>
     let data = '{{ sportdata }}';
-    console.log(data);
   </script>
 </head>
 
@@ -19,7 +18,7 @@
     <section class="container--body">
       <div class="container--body__content">
         <div class="content__leftdiv">
-          <h1>{{ sportdata[0].sportname }}</h1>
+          <h1>{{ sportdata.sportname }}</h1>
           <div>
             <img
               src="https://img.olympicchannel.com/images/image/private/t_16-9_480/f_auto/v1538355600/primary/v9l1qhkr0foubpggpxwk"
@@ -29,18 +28,20 @@
         <div class="content__rightdiv">
           <div class="content__rightdiv__gerne">
             <h2>스포츠 장르</h2>
-            <p>{{ sportdata[0].select1 }} , {{ sportdata[0].select2 }}</p>
+            <p>{{ sportdata.select1 }} , {{ sportdata.select2 }}</p>
           </div>
           <div class="content__rightdiv__context">
             <h2>종목 안내</h2>
-            <p>{{ sportdata[0].text }}</p>
+            <p>{{ sportdata.text }}</p>
           </div>
           <div class="content__rightdiv__url">
             <h2>관련 링크</h2>
-            <a>{{ sportdata[0].link }}</a>
+            <a>{{ sportdata.link }}</a>
           </div>
-
-          <a href="/main">돌아가기</a>
+          <div class="content__rightdiv__btn">
+            <a href="/text/{{ sportdata.sportname }}">내용 수정</a>
+            <a href="/main">돌아가기</a>
+          </div>
         </div>
       </div>
     </section>

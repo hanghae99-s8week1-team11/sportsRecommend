@@ -15,6 +15,7 @@
     <script>
         $(document).ready(function () {
             show_text_json();
+            getPreviousData();
         });
         function show_text() {
             $.ajax({
@@ -48,6 +49,7 @@
                 data: { sportname_give: sportname, username_give: username, select1_give: select1, select2_give: select2, text_give: text, link_give: link },
                 success: function (response) {
                     alert(response['msg'])
+                    location.href('/main')
                 }
             });
         }
@@ -70,6 +72,48 @@
             }
         }
 
+
+        function getPreviousData() {
+            let pathname = window.location.pathname;
+            if (pathname == "/text") {
+                return
+            }
+
+            else if (pathname != "/text") {
+                fetch('/text/{{ sportname }}/get')
+                    .then(response => response.json())
+                    .then(data => {
+                        document.querySelector('#sportname').value = data.sportname;
+                        document.querySelector('#sportname').disabled = "true";
+                        document.querySelector('#username').value = data.username;
+                        document.querySelector('#username').disabled = "true";
+                        document.querySelector('#text').value = data.text;
+                        document.querySelector('#link').value = data.link;
+                        document.querySelector('#savebtn').innerText = "등록";
+                        document.querySelector('#savebtn').setAttribute("onclick", "updateData()");
+                    })
+                    .catch(error => alert("내용을 불러오는데 실패했습니다."))
+            }
+        }
+
+        function updateData(event) {
+            const updateInfo = {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    sportname: document.querySelector('#sportname').value,
+                    select1: document.querySelector('#select1').options[document.querySelector('#select1').selectedIndex].value,
+                    select2: document.querySelector('#select2').options[document.querySelector('#select2').selectedIndex].value,
+                    text: document.querySelector('#text').value,
+                    link: document.querySelector('#link').value,
+                })
+            }
+            fetch('/text/{{ sportname }}/update', updateInfo)
+                .then(response => response.json())
+                .then(data => alert(data["msg"]))
+                .catch(error => alert("문제가 발생해 내용 수정에 실패했습니다."))
+        }
+
     </script>
 </head>
 
@@ -78,7 +122,7 @@
         <div class="container">
             <div class="title-img">
                 <h3>스포츠 이름</h3>
-    
+
                 <input type="text" id="sportname" placeholder="스포츠 이름을 입력해주세요.">
                 <section id="이미지등록">
                     <img id="blah" src="#" alt="your image">
@@ -126,23 +170,25 @@
                     <h3>링크</h3>
                     <input type="text" id="link" placeholder="link(선택)">
 
-                
+
                 </div>
-                
+
 
                 <section class="등록취소">
-                    <button type="button" class="btn btn-primary btn-sm" onclick="save_text()">등록</button>
+                    <button id="savebtn" type="button" class="btn btn-primary btn-sm" onclick="save_text()">등록</button>
                     <!-- 취소버튼 클릭시 메인페이지 이동 -->
-                    <button type="button" class="btn btn-danger btn-sm" onclick="window.location.href='/'">취소</button>
+                    <button id="cancelbtn" type="button" class="btn btn-danger btn-sm"
+                        onclick="window.location.href='/'">취소</button>
             </div>
         </div>
+
     </div>
+
     </section>
     <!-- 부트스트랩 JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
         crossorigin="anonymous"></script>
-
 </body>
 
 </html>
