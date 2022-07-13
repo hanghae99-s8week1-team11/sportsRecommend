@@ -111,6 +111,7 @@ def web_text_post():
     # return render_template("text.html")
 
     sportname_receive = request.form['sportname_give']
+    imgurl_receive = request.form['imgurl_give']
     username_receive = request.form['username_give']
     select1_receive = request.form['select1_give']
     select2_receive = request.form['select2_give']
@@ -119,6 +120,7 @@ def web_text_post():
 
     doc = {
         'sportname': sportname_receive,
+        'imageurl' : imgurl_receive,
         'username': username_receive,
         'select1': select1_receive,
         'select2': select2_receive,
