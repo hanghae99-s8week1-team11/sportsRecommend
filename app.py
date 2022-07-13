@@ -88,8 +88,7 @@ def check_dup():
 def web_text_get():
     # 여러개 찾기 - _id 값은 제외하고 출력
     all_texts = list(db.dbsparta.find({}, {'_id': False}))
-    print(all_texts)
-    return jsonify({'text': all_texts})
+    return jsonify(all_texts)
 
 
 @app.route('/text')
