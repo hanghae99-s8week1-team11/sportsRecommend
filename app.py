@@ -5,6 +5,7 @@ import hashlib
 from flask import Flask, render_template, jsonify, request, redirect, url_for
 from werkzeug.utils import secure_filename
 from datetime import datetime, timedelta
+import json
 
 
 app = Flask(__name__)
@@ -26,17 +27,26 @@ def home():
 
 @app.route("/main")
 def mainpage():
-    sports_list = list(db.testdata.find({}, {"_id": False}))
+    sports_list = list(db.dbsparta.find({}, {"_id": False}))
     return render_template('main.html', sports_list=sports_list)
 
 
 @app.route("/detail")
-def detailpage():
-    sports_list = list(db.testdata.find({}, {"_id": False}))
-    return render_template('detail.html', sports_list=sports_list)
+def detailpagebasic(p):
+    sports_list = list(db.dbsparta.find({}, {"_id": False}))
+    return render_template('detail.html')
 
 
-@app.route('/login', methods=['POST'])
+@app.route("/detail/<sportname>")
+def detailpage(sportname):
+    def filter_sport(list):
+        return list["sportname"] == sportname
+    sports_list = list(db.dbsparta.find({}, {"_id": False}))
+    detaildata = list(filter(filter_sport, sports_list))
+    return render_template('detail.html', sport=sportname, sportdata=detaildata)
+
+
+@ app.route('/login', methods=['POST'])
 def sign_in():
     # 로그인
     username_receive = request.form['username_give']
@@ -59,7 +69,7 @@ def sign_in():
         return jsonify({'result': 'fail', 'msg': '아이디/비밀번호가 일치하지 않습니다.'})
 
 
-@app.route('/signup/save', methods=['POST'])
+@ app.route('/signup/save', methods=['POST'])
 def sign_up():
     username_receive = request.form['username_give']
     password_receive = request.form['password_give']
@@ -77,26 +87,26 @@ def sign_up():
     return jsonify({'result': 'success'})
 
 
-@app.route('/signup/check_dup', methods=['POST'])
+@ app.route('/signup/check_dup', methods=['POST'])
 def check_dup():
     username_receive = request.form['username_give']
     exists = bool(db.users.find_one({"username": username_receive}))
     return jsonify({'result': 'success', 'exists': exists})
 
 
-@app.route('/word', methods=["GET"])
+@ app.route('/word', methods=["GET"])
 def web_text_get():
     # 여러개 찾기 - _id 값은 제외하고 출력
     all_texts = list(db.dbsparta.find({}, {'_id': False}))
     return jsonify(all_texts)
 
 
-@app.route('/text')
+@ app.route('/text')
 def text():
     return render_template('text.html')
 
 
-@app.route('/text', methods=["POST"])
+@ app.route('/text', methods=["POST"])
 def web_text_post():
     # return render_template("text.html")
 

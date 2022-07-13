@@ -134,14 +134,18 @@ body {
   height: 21rem;
 }
 .content__rightdiv__gerne > p {
+  font-size: 0.8rem;
   color: gray;
 }
 
 .content__rightdiv__context > p {
+  font-size: 0.8rem;
   color: gray;
+  height:7rem;
 }
 
 .content__rightdiv__url > a {
+  font-size: 0.8rem;
   color: #50b2cb;
 }
 

@@ -195,6 +195,10 @@ body {
   margin:0;
   width: 16rem;
 
+  text-decoration: none;
+  color:#000000;
+
+
   border: 1px solid gray;
   outline: none;
   border-radius: 10px;
@@ -205,11 +209,13 @@ body {
 }
 
 .list__outerSlot {
+  background: none;
   transform: translateY(50px) rotate(-5deg) translateZ(0);
   transition-delay: .3s;
   transition: .4s;
   opacity: 0;
 
+  border:none;
   cursor:pointer;
 }
 
@@ -231,6 +237,7 @@ body {
 .list__innerSlot > h2 {
   font-size: 1.5rem;
   text-align: left;
+
   margin: 1rem auto 0 1rem;
 
 }
@@ -239,6 +246,8 @@ body {
   font-size: 0.8rem;
   font-family: "NexonFootballGothic", sans-serif;
   text-align: left;
+  text-decoration: none;
+
   color:gray;
 
   height: 2rem;

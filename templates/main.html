@@ -43,12 +43,12 @@
             </div>
             <div class="container--body__list">
                 {% for sport in sports_list %}
-                <div class="list__outerSlot">
-                    <div class="list__innerSlot">
-                        <img src="{{ sport.url }}" alt="detail image">
-                        <h2 class="list__slot__title">{{ sport.title }}</h2>
-                        <p class="list__slot__keyword">{{ sport.keyword }}</p>
-                    </div>
+                <div id="{{ sport.sportname }}" type="button" class="list__outerSlot">
+                    <a class="list__innerSlot" href="detail/{{ sport.sportname }}">
+                        <img src="{{ sport.link }}" alt="detail image">
+                        <h2 class="list__slot__title">{{ sport.sportname }}</h2>
+                        <p class="list__slot__keyword">{{ sport.text[:30] }}</p>
+                    </a>
                 </div>
                 {% endfor %}
             </div>

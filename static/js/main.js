@@ -28,9 +28,6 @@ function fadeInSlot() {
         // slot의 현재 페이지의 상단 영역 - 화면의 안쪽 높이(padding)까지 합친 값
         // innerHeight = content height + padding height
         // 요소가 있는 위치의 상단값이 화면 높이 +20
-        console.log(elem.getBoundingClientRect().top);
-        console.log(window.innerHeight);
-        console.log(showDistance);
         if (showDistance < 0) {
           elem.classList.add("inView");
         } else {
@@ -52,7 +49,6 @@ function setSlidesImage (num) {
 function changeSlide (num) {
   const slideList = document.getElementsByClassName('container--image__slides');
   const slideLength = slideList.length;
-  console.log(slideLength);
   if ((slideIdx +1) > slideLength) {
     slideIdx = 0;
     num = 0;
@@ -73,11 +69,14 @@ function changeSlide (num) {
   slideList[num].style.display = "block";
 }
 
-window.scroll = () => {
+// const check = document.querySelectorAll('.list__outerSlot')
+// console.log(check);
+// check.forEach(param => 
+//   param.addEventListener("click", moveDetailPage(param))
+// )
 
-}
-
-  // $(window).scroll( function(){
-    // $('image').each( function(i){
-      // var bottom_of_element = $(this).offset().top + $(this).outerHeight();
-      // var bottom_of_window = $(window).scrollTop() + $(window).height();
+// function moveDetailPage (event) {
+//   const href = (event.getAttribute('href'));
+//   console.log(href);
+//   event.link(href);
+// }
