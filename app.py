@@ -177,10 +177,11 @@ def updatedata_post(sportname):
     return jsonify({"msg": "갱신이 완료됐습니다!"})
 
 
-@app.route('/detail/delete', method=["POST"])
+@app.route('/detail/delete', methods=["POST"])
 def deleteData():
     sportsData = request.get_json()
-    db.sportslist.deleteOne({'sportname': sportsData["sportname"]})
+    print(sportsData)
+    db.sportslist.delete_one({'sportname': sportsData["sportname"]})
     return jsonify({"msg": "정상적으로 삭제되었습니다!"})
 
 
