@@ -36,7 +36,12 @@
           </div>
           <div class="content__rightdiv__context">
             <h2>종목 안내</h2>
-            <p>{{ sportdata.text }}</p>
+            <p>{% if sportdata.text | length > 290 %}
+              {{ sportdata.text[:290] }}...
+              {% else %}
+              {{ sportdata.text }}
+              {% endif %}
+            </p>
           </div>
           <div class="content__rightdiv__url">
             <h2>관련 링크</h2>
