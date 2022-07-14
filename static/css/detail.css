@@ -147,6 +147,11 @@ body {
 
   height: 21rem;
 }
+
+.content__rightdiv > div >h2 {
+  margin:0;
+}
+
 .content__rightdiv__gerne > p {
   font-size: 0.8rem;
   color: gray;
@@ -157,8 +162,13 @@ body {
 .content__rightdiv__context > p {
   font-size: 0.8rem;
   color: gray;
-  height:6rem;
+  text-justify: auto;
+
   margin: 0.7rem 0;
+
+  height:8rem;
+  width:23rem;
+
 }
 
 .content__rightdiv__btn {
@@ -171,7 +181,7 @@ body {
 }
 
 .content__rightdiv__url > a {
-  font-size: 0.8rem;
+  font-size: 0.6rem;
   color: #50b2cb;
   margin: 0.7rem 0;
 }

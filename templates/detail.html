@@ -40,7 +40,7 @@
           </div>
           <div class="content__rightdiv__url">
             <h2>관련 링크</h2>
-            <a>{{ sportdata.link }}</a>
+            <a href="{{ sportdata.link }}">{{ sportdata.link[:40] }}</a>
           </div>
           <div class="content__rightdiv__btn">
             <a href="/text/{{ sportdata.sportname }}">내용 수정</a>
