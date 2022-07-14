@@ -36,8 +36,11 @@
 - html
 - css
 - javascript
+- python
 - bootstrap
 - jquery
+- flask
+- Json Web Token
 
 ---
 
