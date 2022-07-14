@@ -1,5 +1,107 @@
 <section class="container--header">
   <a class="container--header__logo" href="/main">음지의 스포츠</a>
   <a href="/text" class="container--header__button">스포츠 작성하기</a>
-  <div class="container--header__profile"></div>
+
+  <button type="button" class="container--header__profile" style="background:none; border:none; margin-right:0.5rem;">
+    <img src="../static/media/profile_icon.png" alt="profile image icon" style="width:2.2rem; height:2.2rem;">
+  </button>
+
+  <div class="share__box">
+    <div class="share__box__text">
+      안녕하세요!
+    </div>
+
+    <button type="button" class="container--header__profile__logout" onclick="sign_out()">
+      Log Out
+    </button>
+
+    <div class="shape__triangle">
+    </div>
 </section>
+
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+  crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+<script>
+  const profile = document.querySelector('.container--header__profile');
+  profile.addEventListener("click", () => openMyProfile())
+
+  function openMyProfile() {
+    profile.classList.toggle('click');
+
+    var profilebox = profile.nextElementSibling;
+    if (profilebox.style.display == "flex") {
+      profilebox.style.display = "none";
+    } else {
+      profilebox.style.display = "flex";
+    }
+  }
+
+  function sign_out() {
+    $.removeCookie('mytoken', { path: '/' });
+    alert('로그아웃 되었습니다.')
+    document.location = "/"
+  }
+
+
+</script>
+
+<style>
+  .share__box {
+    display: none;
+
+    background-color: #ffffff;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    gap: 1rem;
+
+    font-size: 0.4rem;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+
+    top: 135%;
+    right: 1%;
+    /* transition: all 0.5s ease; */
+  }
+
+  .share__box>div {
+    font-size: 0.7rem;
+  }
+
+  .shape__triangle {
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+
+    border-bottom: 20px solid #ffffff;
+
+    display: block;
+    position: absolute;
+
+    top: -14%;
+    right: 12%;
+    width: 0;
+    height: 0;
+  }
+
+  .container--header__profile__logout {
+    background-color: #286090;
+
+    color: #ffffff;
+    font-size: 0.6rem;
+
+    border: none;
+    border-radius: 6px;
+    padding: 0.2rem 0.5rem;
+    transition: 0.1s ease;
+  }
+
+  .container--header__profile__logout:hover {
+    transform: scale(1.1);
+    transition: 0.1s ease;
+
+  }
+</style>
