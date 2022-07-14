@@ -14,30 +14,30 @@ window.onload = () => {
   }, setTime);
 }
 
-// const slotArray = document.querySelectorAll(".list__outerSlot");
-// // 슬롯에 해당하는 div들을 몽땅 가져온다.
-// window.addEventListener("scroll", fadeInSlot);
-// // 화면에 scroll fadein 함수를 적용한다.
+const slotArray = document.querySelectorAll(".container--intro");
+// 슬롯에 해당하는 div들을 몽땅 가져온다.
+window.addEventListener("scroll", fadeInSlot);
+// 화면에 scroll fadein 함수를 적용한다.
 
 
-// function fadeInSlot() {
-//     for (let i = 0; i < slotArray.length; i++) {
-//         const elem = slotArray[i]
-//         const showDistance = elem.getBoundingClientRect().top - window.innerHeight + 20;
-//         // getBoundingClientRect - 요소의 현재 페이지 위치를 알아낼 수 있음.
-//         // slot의 현재 페이지의 상단 영역 - 화면의 안쪽 높이(padding)까지 합친 값
-//         // innerHeight = content height + padding height
-//         // 요소가 있는 위치의 상단값이 화면 높이 +20
-//         if (showDistance < 0) {
-//           elem.classList.add("inView");
-//         } else {
-//           elem.classList.remove("inView");
-//         }
-//     }
-// }
+function fadeInSlot() {
+    for (let i = 0; i < slotArray.length; i++) {
+        const elem = slotArray[i]
+        const showDistance = elem.getBoundingClientRect().top - window.innerHeight + 20;
+        // getBoundingClientRect - 요소의 현재 페이지 위치를 알아낼 수 있음.
+        // slot의 현재 페이지의 상단 영역 - 화면의 안쪽 높이(padding)까지 합친 값
+        // innerHeight = content height + padding height
+        // 요소가 있는 위치의 상단값이 화면 높이 +20
+        if (showDistance < 0) {
+          elem.classList.add("inView");
+        } else {
+          elem.classList.remove("inView");
+        }
+    }
+}
 
-// // 슬롯을 실행하자.
-// fadeInSlot();
+// 슬롯을 실행하자.
+fadeInSlot();
   
 
 function setSlidesImage (num) {
@@ -68,15 +68,3 @@ function changeSlide (num) {
   }
   slideList[num].style.display = "block";
 }
-
-// const check = document.querySelectorAll('.list__outerSlot')
-// console.log(check);
-// check.forEach(param => 
-//   param.addEventListener("click", moveDetailPage(param))
-// )
-
-// function moveDetailPage (event) {
-//   const href = (event.getAttribute('href'));
-//   console.log(href);
-//   event.link(href);
-// }

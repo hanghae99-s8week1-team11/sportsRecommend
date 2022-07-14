@@ -353,3 +353,25 @@ body {
     width: 100%;
   }
 }
+
+.container--intro {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  width: 100vw;
+  
+  margin: 3rem auto;
+
+  transform: translateY(50px) rotate(-5deg) translateZ(0);
+  transition-delay: .3s;
+  transition: .4s;
+  opacity: 0;
+}
+
+
+.container--intro.inView {
+  opacity: 1;
+  transform: translateY(0px) rotate(0deg) translateZ(0);
+}
