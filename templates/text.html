@@ -49,7 +49,7 @@
                 data: { sportname_give: sportname, username_give: username, select1_give: select1, select2_give: select2, text_give: text, link_give: link },
                 success: function (response) {
                     alert(response['msg'])
-                    location.href('/main')
+                    document.location = '/main'
                 }
             });
         }
@@ -110,7 +110,10 @@
             }
             fetch('/text/{{ sportname }}/update', updateInfo)
                 .then(response => response.json())
-                .then(data => alert(data["msg"]))
+                .then(data => {
+                    alert(data["msg"])
+                    document.location = '/main'
+                })
                 .catch(error => alert("문제가 발생해 내용 수정에 실패했습니다."))
         }
 
@@ -178,7 +181,7 @@
                     <button id="savebtn" type="button" class="btn btn-primary btn-sm" onclick="save_text()">등록</button>
                     <!-- 취소버튼 클릭시 메인페이지 이동 -->
                     <button id="cancelbtn" type="button" class="btn btn-danger btn-sm"
-                        onclick="window.location.href='/'">취소</button>
+                        onclick="document.location='/main'">취소</button>
             </div>
         </div>
 

@@ -1,4 +1,4 @@
-// const deletebtn = document.querySelector('.deletebtn');
+// const deletebtn = document.querySelector('.content__rightdiv_icon');
 
 // deletebtn.addEventListener('click', () => {
 //     deleteSportsData();
@@ -8,9 +8,9 @@
 //   const deleteInfo = {
 //       method: "POST",
 //       headers: { "Content-Type": "application/json" },
-//       body: JSON.stringify({sportname: document.querySelector('h1').text})
+//       body: JSON.stringify({sportname: document.querySelector('.content__leftdiv h1')})
 //   }
-
+//   console.log(document.querySelector('.content__leftdiv h1').value);
 //   fetch('/detail/delete', deleteInfo)
 //       .then(response => response.json())
 //       .then(data => alert(data["msg"]))

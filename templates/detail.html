@@ -8,9 +8,6 @@
   <title>음지의 스포츠</title>
 
   <link rel="stylesheet" href="../static/css/detail.css" />
-  <script>
-    let data = '{{ sportdata }}';
-  </script>
 </head>
 
 <body>
@@ -26,6 +23,9 @@
           </div>
         </div>
         <div class="content__rightdiv">
+          <button type="button" class="content__rightdiv_icon">
+            <img src="../static/media/2891491.png" alt="data delete icon"></i>
+          </button>
           <div class="content__rightdiv__gerne">
             <h2>스포츠 장르</h2>
             <p>{{ sportdata.select1 }} , {{ sportdata.select2 }}</p>
@@ -46,6 +46,31 @@
       </div>
     </section>
     <script src="../static/js/detail.js"></script>
+    <script>
+      let data = '{{ sportdata }}';
+
+      const deletebtn = document.querySelector('.content__rightdiv_icon');
+
+      deletebtn.addEventListener('click', () => {
+        deleteSportsData();
+      })
+
+      function deleteSportsData() {
+        const deleteInfo = {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ sportname: "{{sportdata.sportname}}" })
+        }
+        console.log(deleteInfo);
+        fetch('/detail/delete', deleteInfo)
+          .then(response => response.json())
+          .then(data => {
+            alert(data["msg"])
+            document.location = '/main'
+          })
+          .catch(error => alert("문제가 발생해 삭제에 실패했습니다."))
+      }
+    </script>
     {% extends "header" %}
   </div>
 </body>
