@@ -15,19 +15,19 @@
 
 ### 👥 프로젝트 참가자
 
-######👨‍💻 김승민: https://github.com/winmin90
-######👨‍💻 김윤철: https://github.com/Aaron-Kim33
-######👨‍💻 김주환: https://github.com/juhwanKim123
-######👨‍💻 신도윤: https://github.com/DrunkenNeoguri
+######👨‍💻 김승민: https://github.com/winmin90  
+######👨‍💻 김윤철: https://github.com/Aaron-Kim33  
+######👨‍💻 김주환: https://github.com/juhwanKim123  
+######👨‍💻 신도윤: https://github.com/DrunkenNeoguri  
 
 ---
 
 ### 👥 담당 작업
 
-######👨‍💻 김승민: 회원가입 구현
-######👨‍💻 김윤철: 메인 페이지 필터, 글 작성 페이지 구현
-######👨‍💻 김주환: 로그인 및 로그아웃 구현
-######👨‍💻 신도윤: 상세 정보, 메인 페이지 및 글 수정/삭제 기능 구현
+######👨‍💻 김승민: 회원가입 구현  
+######👨‍💻 김윤철: 메인 페이지 필터, 글 작성 페이지 구현  
+######👨‍💻 김주환: 로그인 및 로그아웃 구현  
+######👨‍💻 신도윤: 상세 정보, 메인 페이지 및 글 수정/삭제 기능 구현  
 
 ---
 
