@@ -10,7 +10,10 @@
 }
 
 body {
-  background: linear-gradient(90deg, rgba(242,236,126,0.95) 0%, rgba(252,238,131,0.99) 25%, rgba(230,211,130,0.9) 50%, rgba(252,222,131,0.99) 75%, rgba(242,207,131,1) 95%);
+  background-image: url('https://images.unsplash.com/photo-1617646339087-654bc92e57c7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 
   margin:0;
 
@@ -89,7 +92,7 @@ body {
   
   padding:1rem;
   margin: auto;
-  margin-top:5rem;
+  margin-top:4.5rem;
 
   height: 22rem;
   width:40rem;
