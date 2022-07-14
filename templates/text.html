@@ -62,10 +62,10 @@
             });
         }
         //이미지 업로드 프리뷰
-        function printName()  {
+        function printName() {
             const name = document.getElementById('imgurl').value;
             document.getElementById("result").src = name;
-          }
+        }
 
         function readURL(input) {
             if (input.files && input.files[0]) {
@@ -96,6 +96,8 @@
                         document.querySelector('#username').disabled = "true";
                         document.querySelector('#text').value = data.text;
                         document.querySelector('#link').value = data.link;
+                        document.querySelector('#imgurl').value = data.imgurl;
+                        console.log(document.querySelector('#imgurl').value);
                         document.querySelector('#savebtn').innerText = "등록";
                         document.querySelector('#savebtn').setAttribute("onclick", "updateData()");
                     })
@@ -113,6 +115,7 @@
                     select2: document.querySelector('#select2').options[document.querySelector('#select2').selectedIndex].value,
                     text: document.querySelector('#text').value,
                     link: document.querySelector('#link').value,
+                    imgurl: document.querySelector('#imgurl').value
                 })
             }
             fetch('/text/{{ sportname }}/update', updateInfo)
@@ -134,12 +137,12 @@
 
                 <input type="text" id="sportname" placeholder="스포츠 이름을 입력해주세요.">
                 <section id="이미지등록">
-               
-                <img id="result" src="#" alt="image preview">
+
+                    <img id="result" src="#" alt="image preview">
                     <div class="mb-3">
                         <input type="url" id="imgurl" onchange="printName()" placeholder="url 입력 칸">
-                       <p class="notice">url을 입력하신 후 Enter키를 눌러주세요</p>
-                    
+                        <p class="notice">url을 입력하신 후 Enter키를 눌러주세요</p>
+
                     </div>
                 </section>
             </div>
@@ -150,24 +153,24 @@
                 <input type="text" id="username" placeholder="작성자를 입력하세요">
 
                 <section class="select_container">
-                <h3>장소</h3>
+                    <h3>장소</h3>
 
-                <select name="장소" id="select1">
-                    <option value="" class="select_default" selected hidden> 선택</option>
-                    <option value="실내">실내</option>
-                    <option value="실외">실외</option>
-                </select>
+                    <select name="장소" id="select1">
+                        <option value="" class="select_default" selected hidden> 선택</option>
+                        <option value="실내">실내</option>
+                        <option value="실외">실외</option>
+                    </select>
 
 
-                <h3>계절</h3>
+                    <h3>계절</h3>
 
-                <select name="계절" id="select2">
-                    <option value="" class="select_default" selected hidden> 선택</option>
-                    <option value="상시">상시</option>
-                    <option value="하계">하계</option>
-                    <option value="동계">동계</option>
-                </select>
-            </section>
+                    <select name="계절" id="select2">
+                        <option value="" class="select_default" selected hidden> 선택</option>
+                        <option value="상시">상시</option>
+                        <option value="하계">하계</option>
+                        <option value="동계">동계</option>
+                    </select>
+                </section>
 
                 <div id="text-box">
                     <h3>스포츠 정보</h3>

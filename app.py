@@ -117,6 +117,7 @@ def web_text_post():
     select2_receive = request.form['select2_give']
     text_receive = request.form['text_give']
     link_receive = request.form['link_give']
+    imgurl_receive = request.form['imgurl_give']
 
     doc = {
         'sportname': sportname_receive,
@@ -124,7 +125,8 @@ def web_text_post():
         'select1': select1_receive,
         'select2': select2_receive,
         'text': text_receive,
-        'link': link_receive
+        'link': link_receive,
+        'imgurl': imgurl_receive
     }
 
     db.sportslist.insert_one(doc)
@@ -152,7 +154,7 @@ def updatedata_get(sportname):
         'select2': detaildata[0]["select2"],
         'text': detaildata[0]["text"],
         'link': detaildata[0]["link"],
-        # 'img': detaildata["imgurl"]
+        'imgurl': detaildata[0]["imgurl"]
     }
     return jsonify(getdata)
 
@@ -173,6 +175,8 @@ def updatedata_post(sportname):
                              '$set': {'text': sportsData["text"]}})
     db.sportslist.update_one({'sportname': sportsData["sportname"]}, {
         '$set': {'link': sportsData["link"]}})
+    db.sportslist.update_one({'sportname': sportsData["sportname"]}, {
+        '$set': {'imgurl': sportsData["imgurl"]}})
 
     return jsonify({"msg": "갱신이 완료됐습니다!"})
 
