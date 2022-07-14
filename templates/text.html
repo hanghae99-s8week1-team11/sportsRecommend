@@ -5,16 +5,24 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta property="og:title" content="음지의 스포츠" />
+    <meta property="og:description" content="세상의 모든 스포츠가 알려지는 그날까지, 음지의 스포츠" />
+    <meta property="og:image"
+        content="https://images.unsplash.com/photo-1507726420169-08dc80118357?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1329&q=80" />
+
+
     <!-- 부트스트랩 CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <link rel="stylesheet" href="../static/text.css">
-    <title>text</title>
+    <title>음지의 스포츠</title>
     <script src="https://code.jquery.com/jquery-3.6.0.js"
         integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <script>
         $(document).ready(function () {
             show_text_json();
+            getPreviousData();
         });
         function show_text() {
             $.ajax({
@@ -36,6 +44,7 @@
 
         function save_text() {
             let sportname = $('#sportname').val()
+            let imgurl = $('#imgurl').val()
             let username = $('#username').val()
             let select1 = $('#select1').val()
             let select2 = $('#select2').val()
@@ -45,18 +54,18 @@
             $.ajax({
                 type: 'POST',
                 url: '/text',
-                data: { sportname_give: sportname, username_give: username, select1_give: select1, select2_give: select2, text_give: text, link_give: link },
+                data: { sportname_give: sportname, imgurl_give: imgurl, username_give: username, select1_give: select1, select2_give: select2, text_give: text, link_give: link },
                 success: function (response) {
                     alert(response['msg'])
+                    document.location = '/main'
                 }
             });
         }
         //이미지 업로드 프리뷰
-        $(function () {
-            $("#formFile").on('change', function () {
-                readURL(this);
-            });
-        });
+        function printName()  {
+            const name = document.getElementById('imgurl').value;
+            document.getElementById("result").src = name;
+          }
 
         function readURL(input) {
             if (input.files && input.files[0]) {
@@ -70,6 +79,51 @@
             }
         }
 
+
+        function getPreviousData() {
+            let pathname = window.location.pathname;
+            if (pathname == "/text") {
+                return
+            }
+
+            else if (pathname != "/text") {
+                fetch('/text/{{ sportname }}/get')
+                    .then(response => response.json())
+                    .then(data => {
+                        document.querySelector('#sportname').value = data.sportname;
+                        document.querySelector('#sportname').disabled = "true";
+                        document.querySelector('#username').value = data.username;
+                        document.querySelector('#username').disabled = "true";
+                        document.querySelector('#text').value = data.text;
+                        document.querySelector('#link').value = data.link;
+                        document.querySelector('#savebtn').innerText = "등록";
+                        document.querySelector('#savebtn').setAttribute("onclick", "updateData()");
+                    })
+                    .catch(error => alert("내용을 불러오는데 실패했습니다."))
+            }
+        }
+
+        function updateData(event) {
+            const updateInfo = {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    sportname: document.querySelector('#sportname').value,
+                    select1: document.querySelector('#select1').options[document.querySelector('#select1').selectedIndex].value,
+                    select2: document.querySelector('#select2').options[document.querySelector('#select2').selectedIndex].value,
+                    text: document.querySelector('#text').value,
+                    link: document.querySelector('#link').value,
+                })
+            }
+            fetch('/text/{{ sportname }}/update', updateInfo)
+                .then(response => response.json())
+                .then(data => {
+                    alert(data["msg"])
+                    document.location = '/main'
+                })
+                .catch(error => alert("문제가 발생해 내용 수정에 실패했습니다."))
+        }
+        
     </script>
 </head>
 
@@ -78,15 +132,15 @@
         <div class="container">
             <div class="title-img">
                 <h3>스포츠 이름</h3>
-    
+
                 <input type="text" id="sportname" placeholder="스포츠 이름을 입력해주세요.">
                 <section id="이미지등록">
-                    <img id="blah" src="#" alt="your image">
+               
+                <img id="result" src="#" alt="image preview">
                     <div class="mb-3">
-                        <form id="form1" runat="server">
-                            <input type='file' class="form-control form-control-sm" id="formFile" accept="image/*">
-
-                        </form>
+                        <input type="url" id="imgurl" onchange="printName()" placeholder="url 입력 칸">
+                       <p class="notice">url을 입력하신 후 Enter키를 눌러주세요</p>
+                    
                     </div>
                 </section>
             </div>
@@ -96,7 +150,7 @@
                 <h3>작성자</h3>
                 <input type="text" id="username" placeholder="작성자를 입력하세요">
 
-
+                <section class="select_container">
                 <h3>장소</h3>
 
                 <select name="장소" id="select1">
@@ -114,7 +168,7 @@
                     <option value="하계">하계</option>
                     <option value="동계">동계</option>
                 </select>
-
+            </section>
 
                 <div id="text-box">
                     <h3>스포츠 정보</h3>
@@ -126,23 +180,25 @@
                     <h3>링크</h3>
                     <input type="text" id="link" placeholder="link(선택)">
 
-                
+
                 </div>
-                
+
 
                 <section class="등록취소">
-                    <button type="button" class="btn btn-primary btn-sm" onclick="save_text()">등록</button>
+                    <button id="savebtn" type="button" class="btn btn-primary btn-sm" onclick="save_text()">등록</button>
                     <!-- 취소버튼 클릭시 메인페이지 이동 -->
-                    <button type="button" class="btn btn-danger btn-sm" onclick="window.location.href='/'">취소</button>
+                    <button id="cancelbtn" type="button" class="btn btn-danger btn-sm"
+                        onclick="document.location='/main'">취소</button>
             </div>
         </div>
+
     </div>
+
     </section>
     <!-- 부트스트랩 JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
         crossorigin="anonymous"></script>
-
 </body>
 
 </html>

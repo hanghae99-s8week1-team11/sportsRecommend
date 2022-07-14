@@ -16,33 +16,34 @@ SECRET_KEY = 'SPARTA'
 
 client = MongoClient(
     "mongodb+srv://aaronkim:aa0134679@cluster0.l0k2g.mongodb.net/?retryWrites=true&w=majority")
-db = client.dbsparta_plus_week4
+
+db = client.SportsList
 
 
-@app.route('/')
+@ app.route('/')
 def home():
     msg = request.args.get("msg")
     return render_template('login.html', msg=msg)
 
 
-@app.route("/main")
+@ app.route("/main")
 def mainpage():
-    sports_list = list(db.dbsparta.find({}, {"_id": False}))
+    sports_list = list(db.sportslist.find({}, {"_id": False}))
     return render_template('main.html', sports_list=sports_list)
 
 
-@app.route("/detail")
+@ app.route("/detail")
 def detailpagebasic(p):
-    sports_list = list(db.dbsparta.find({}, {"_id": False}))
+    sports_list = list(db.sportslist.find({}, {"_id": False}))
     return render_template('detail.html')
 
 
-@app.route("/detail/<sportname>")
+@ app.route("/detail/<sportname>")
 def detailpage(sportname):
     def filter_sport(list):
         return list["sportname"] == sportname
-    sports_list = list(db.dbsparta.find({}, {"_id": False}))
-    detaildata = list(filter(filter_sport, sports_list))
+    sports_list = list(db.sportslist.find({}, {"_id": False}))
+    detaildata = list(filter(filter_sport, sports_list))[0]
     return render_template('detail.html', sport=sportname, sportdata=detaildata)
 
 
@@ -97,7 +98,7 @@ def check_dup():
 @ app.route('/word', methods=["GET"])
 def web_text_get():
     # 여러개 찾기 - _id 값은 제외하고 출력
-    all_texts = list(db.dbsparta.find({}, {'_id': False}))
+    all_texts = list(db.sportslist.find({}, {'_id': False}))
     return jsonify(all_texts)
 
 
@@ -128,9 +129,62 @@ def web_text_post():
         'link': link_receive
     }
 
-    db.dbsparta.insert_one(doc)
+    db.sportslist.insert_one(doc)
 
     return jsonify({'msg': '게시글 작성이 완료되었습니다.'})
+
+
+@ app.route("/text/<sportname>")
+def updatepage(sportname):
+    return render_template('text.html', sportname=sportname)
+
+
+@ app.route("/text/<sportname>/get", methods=["GET"])
+def updatedata_get(sportname):
+    print(sportname)
+
+    def filter_sport(list):
+        return list["sportname"] == sportname
+    sports_list = list(db.sportslist.find({}, {"_id": False}))
+    detaildata = list(filter(filter_sport, sports_list))
+    getdata = {
+        'sportname': detaildata[0]["sportname"],
+        'username': detaildata[0]["username"],
+        'select1': detaildata[0]["select1"],
+        'select2': detaildata[0]["select2"],
+        'text': detaildata[0]["text"],
+        'link': detaildata[0]["link"],
+        # 'img': detaildata["imgurl"]
+    }
+    return jsonify(getdata)
+
+
+@ app.route("/text/<sportname>/update", methods=["POST"])
+def updatedata_post(sportname):
+    sportsData = request.get_json()
+    # db.sportslist.update_one({'sportname': sportsData["sportname"]}, {
+    #                          '$set': {'username': sportsData["username"]}})
+
+    db.sportslist.update_one({'sportname': sportsData["sportname"]}, {
+                             '$set': {'select1': sportsData["select1"]}})
+
+    db.sportslist.update_one({'sportname': sportsData["sportname"]}, {
+                             '$set': {'select2': sportsData["select2"]}})
+
+    db.sportslist.update_one({'sportname': sportsData["sportname"]}, {
+                             '$set': {'text': sportsData["text"]}})
+    db.sportslist.update_one({'sportname': sportsData["sportname"]}, {
+        '$set': {'link': sportsData["link"]}})
+
+    return jsonify({"msg": "갱신이 완료됐습니다!"})
+
+
+@app.route('/detail/delete', methods=["POST"])
+def deleteData():
+    sportsData = request.get_json()
+    print(sportsData)
+    db.sportslist.delete_one({'sportname': sportsData["sportname"]})
+    return jsonify({"msg": "정상적으로 삭제되었습니다!"})
 
 
 if __name__ == '__main__':

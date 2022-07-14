@@ -5,13 +5,70 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>음지의 스포츠</title>
-
+    <!-- 부트스트랩 CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <link rel="stylesheet" href="../static/css/main.css">
+    <title>음지의 스포츠</title>
+    <!-- -->
+
+    <meta property="og:title" content="음지의 스포츠" />
+    <meta property="og:description" content="세상의 모든 스포츠가 알려지는 그날까지, 음지의 스포츠" />
+    <meta property="og:image"
+        content="https://images.unsplash.com/photo-1507726420169-08dc80118357?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1329&q=80" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script
+        src="https://cdn2.hubspot.net/hub/322787/hub_generated/style_manager/1440007714979/custom/page/hack-a-thon-3/masonry.min.min.js"></script>
+    <script
+        src="https://cdn2.hubspot.net/hub/322787/hub_generated/style_manager/1440007849180/custom/page/hack-a-thon-3/isotope.min.js"></script>
+
+
+    <script>
+        $(function () {
+            var $grid = $('.grid').isotope({ // 클래스에 'grid'가 포함된
+                itemSelector: 'article' // article 에서 찾는다
+            });
+
+            // 필터 버튼
+            $('.filters-button-group').on('click', 'button', function () {
+                var filterValue = $(this).attr('data-filter');
+                $grid.isotope({ filter: filterValue });
+            });
+            $('.button-group').each(function (i, buttonGroup) {
+                var $buttonGroup = $(buttonGroup);
+                $buttonGroup.on('click', 'button', function () {
+                    $buttonGroup.find('.is-checked').removeClass('is-checked');
+                    $(this).addClass('is-checked');
+                });
+            });
+        });
+
+        // 디바운싱을 하여 계속해서 실행되지 않는다
+        function debounce(fn, threshold) {
+            var timeout;
+            return function debounced() {
+                if (timeout) {
+                    clearTimeout(timeout);
+                }
+                function delayed() {
+                    fn();
+                    timeout = null;
+                }
+                timeout = setTimeout(delayed, threshold || 100);
+            }
+        }
+        //all 버튼
+        $(window).bind("load", function () {
+            $('#all').click();
+        });
+
+    </script>
+
 </head>
 
 <body>
-    <div class="container">
+    <div class="container" style="padding-right: 0px; padding-left: 0px; width:100vw;">
         <section class="container--image">
 
             <div class="container--image__slidesshadow">
@@ -37,21 +94,138 @@
             <button class="container--image__prevbtn">&#10094;</button>
             <button class="container--image__nextbtn">&#10095;</button>
         </section>
-        <section class="container--body">
-            <div class="container--body__filter">
+        <!-- <div class="button-group filters-button-group">
+            <button class="button is-checked" data-filter="*">all</button> -->
+        <!-- data-filter와 아래 article class가 같으면 찾아짐 -->
+        <!-- <button class="button" data-filter=".실내">실내</button> 
+            <button class="button" data-filter=".실외">실외</button>
+            <button class="button" data-filter=".상시">상시</button>
+            <button class="button" data-filter=".하계">하계</button>
+            <button class="button" data-filter=".동계">동계</button>
+        </div> -->
 
+        <!-- <article class="실내">
+                <img src="https://cdn2.hubspot.net/hub/322787/hubfs/MYCHEFCOM/hackathon/photos-gallery/beach4.jpg"
+                    class="img-responsive" />
+            </article>
+            <article class="실내 하계">
+                <img src="https://cdn2.hubspot.net/hub/322787/hubfs/MYCHEFCOM/hackathon/photos-gallery/sea3.jpg"
+                    class="img-responsive" />
+            </article>
+            <article class="실내 동계">
+                <img src="https://cdn2.hubspot.net/hub/322787/hubfs/MYCHEFCOM/hackathon/photos-gallery/rock1.jpg"
+                    class="img-responsive" />
+            </article>
+            <article class="실외">
+                <img src="https://cdn2.hubspot.net/hub/322787/hubfs/MYCHEFCOM/hackathon/photos-gallery/beach4.jpg"
+                    class="img-responsive" />
+            </article>
+            <article class="상시">
+                <img src="https://cdn2.hubspot.net/hub/322787/hubfs/MYCHEFCOM/hackathon/photos-gallery/sea3.jpg"
+                    class="img-responsive" />
+            </article>
+            <article class="하계">
+                <img src="https://cdn2.hubspot.net/hub/322787/hubfs/MYCHEFCOM/hackathon/photos-gallery/rock1.jpg"
+                    class="img-responsive" />
+            </article>
+            <article class="실내 상시">
+                <a class="list__innerSlot" href="detail/이름">
+                    <img src="링크" alt="detail image">
+                    <h2 class="list__slot__title">이름</h2>
+                    <p class="list__slot__keyword">정보</p>
+                </a>
+            </article>
+            <article class="실내 하계">
+                <a class="list__innerSlot" href="detail/이름">
+                    <img src="링크" alt="detail image">
+                    <h2 class="list__slot__title">이름</h2>
+                    <p class="list__slot__keyword">정보</p>
+                </a>
+            </article>
+            <article class="실내 동계">
+                <a class="list__innerSlot" href="detail/이름">
+                    <img src="링크" alt="detail image">
+                    <h2 class="list__slot__title">이름</h2>
+                    <p class="list__slot__keyword">정보</p>
+                </a>
+            </article>
+            <article class="실외 상시">
+                <a class="list__innerSlot" href="detail/이름">
+                    <img src="링크" alt="detail image">
+                    <h2 class="list__slot__title">이름</h2>
+                    <p class="list__slot__keyword">정보</p>
+                </a>
+            </article>
+            <article class="실외 하계">
+                <a class="list__innerSlot" href="detail/이름">
+                    <img src="링크" alt="detail image">
+                    <h2 class="list__slot__title">이름</h2>
+                    <p class="list__slot__keyword">정보</p>
+                </a>
+            </article>
+            <article class="실외 동계">
+                <a class="list__innerSlot" href="detail/이름">
+                    <img src="링크" alt="detail image">
+                    <h2 class="list__slot__title">이름</h2>
+                    <p class="list__slot__keyword">정보</p>
+                </a>
+            </article>
+            <article class="실내 ">
+                <a class="list__innerSlot" href="detail/이름">
+                    <img src="링크" alt="detail image">
+                    <h2 class="list__slot__title">이름</h2>
+                    <p class="list__slot__keyword">정보</p>
+                </a>
+            </article>
+            <article class="실외">
+                <a class="list__innerSlot" href="detail/이름">
+                    <img src="링크" alt="detail image">
+                    <h2 class="list__slot__title">이름</h2>
+                    <p class="list__slot__keyword">정보</p>
+                </a>
+            </article>
+            <article class="실내 실외">
+                <a class="list__innerSlot" href="detail/이름">
+                    <img src="링크" alt="detail image">
+                    <h2 class="list__slot__title">이름</h2>
+                    <p class="list__slot__keyword">정보</p>
+                </a>
+            </article>
+            <article class="동계">
+                <a class="list__innerSlot" href="detail/이름">
+                    <img src="링크" alt="detail image">
+                    <h2 class="list__slot__title">이름</h2>
+                    <p class="list__slot__keyword">정보</p>
+                </a>
+            </article> -->
+        <!-- </section> -->
+
+        <section class="container--body">
+            <div class="button-group filters-button-group">
+                <button class="button is-checked" data-filter="*">all</button>
+                <!-- data-filter와 아래 article class가 같으면 찾아짐 -->
+                <button class="button" data-filter=".실내">실내</button>
+                <button class="button" data-filter=".실외">실외</button>
+                <button class="button" data-filter=".상시">상시</button>
+                <button class="button" data-filter=".하계">하계</button>
+                <button class="button" data-filter=".동계">동계</button>
             </div>
-            <div class="container--body__list">
+            <section id="grid-container" class="container--body__list transitions-enabled fluid masonry js-masonry grid"
+                style="width:100vw !important; padding:2rem !important;">
+
+                <!-- <div class="container--body__list"> -->
                 {% for sport in sports_list %}
-                <div id="{{ sport.sportname }}" type="button" class="list__outerSlot">
+                <article id="{{ sport.sportname }}" class="list__outerSlot {{ sport.select1 }} {{ sport.select2 }}"
+                    style="margin-left: 2rem; margin-right:2rem;">
                     <a class="list__innerSlot" href="detail/{{ sport.sportname }}">
                         <img src="{{ sport.link }}" alt="detail image">
                         <h2 class="list__slot__title">{{ sport.sportname }}</h2>
                         <p class="list__slot__keyword">{{ sport.text[:30] }}</p>
                     </a>
-                </div>
+                </article>
                 {% endfor %}
-            </div>
+                <!-- </div> -->
+            </section>
         </section>
         <script src="../static/js/main.js"></script>
         {% extends "header" %}

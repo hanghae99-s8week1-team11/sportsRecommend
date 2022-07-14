@@ -5,13 +5,15 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <meta property="og:title" content="음지의 스포츠" />
+  <meta property="og:description" content="세상의 모든 스포츠가 알려지는 그날까지, 음지의 스포츠" />
+  <meta property="og:image"
+    content="https://images.unsplash.com/photo-1507726420169-08dc80118357?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1329&q=80" />
+
   <title>음지의 스포츠</title>
 
   <link rel="stylesheet" href="../static/css/detail.css" />
-  <script>
-    let data = '{{ sportdata }}';
-    console.log(data);
-  </script>
 </head>
 
 <body>
@@ -19,7 +21,7 @@
     <section class="container--body">
       <div class="container--body__content">
         <div class="content__leftdiv">
-          <h1>{{ sportdata[0].sportname }}</h1>
+          <h1>{{ sportdata.sportname }}</h1>
           <div>
             <img
               src="https://img.olympicchannel.com/images/image/private/t_16-9_480/f_auto/v1538355600/primary/v9l1qhkr0foubpggpxwk"
@@ -27,24 +29,54 @@
           </div>
         </div>
         <div class="content__rightdiv">
+          <button type="button" class="content__rightdiv_icon">
+            <img src="../static/media/2891491.png" alt="data delete icon"></i>
+          </button>
           <div class="content__rightdiv__gerne">
             <h2>스포츠 장르</h2>
-            <p>{{ sportdata[0].select1 }} , {{ sportdata[0].select2 }}</p>
+            <p>{{ sportdata.select1 }} , {{ sportdata.select2 }}</p>
           </div>
           <div class="content__rightdiv__context">
             <h2>종목 안내</h2>
-            <p>{{ sportdata[0].text }}</p>
+            <p>{{ sportdata.text }}</p>
           </div>
           <div class="content__rightdiv__url">
             <h2>관련 링크</h2>
-            <a>{{ sportdata[0].link }}</a>
+            <a>{{ sportdata.link }}</a>
           </div>
-
-          <a href="/main">돌아가기</a>
+          <div class="content__rightdiv__btn">
+            <a href="/text/{{ sportdata.sportname }}">내용 수정</a>
+            <a href="/main">돌아가기</a>
+          </div>
         </div>
       </div>
     </section>
     <script src="../static/js/detail.js"></script>
+    <script>
+      let data = '{{ sportdata }}';
+
+      const deletebtn = document.querySelector('.content__rightdiv_icon');
+
+      deletebtn.addEventListener('click', () => {
+        deleteSportsData();
+      })
+
+      function deleteSportsData() {
+        const deleteInfo = {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ sportname: "{{sportdata.sportname}}" })
+        }
+        console.log(deleteInfo);
+        fetch('/detail/delete', deleteInfo)
+          .then(response => response.json())
+          .then(data => {
+            alert(data["msg"])
+            document.location = '/main'
+          })
+          .catch(error => alert("문제가 발생해 삭제에 실패했습니다."))
+      }
+    </script>
     {% extends "header" %}
   </div>
 </body>
